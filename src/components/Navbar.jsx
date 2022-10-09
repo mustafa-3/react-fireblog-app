@@ -15,8 +15,9 @@ import AdbIcon from "@mui/icons-material/Adb";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
-const pages = ["Home", "About", "Register"];
+const pages = ["Home", "Login", "Register"];
 const settings = ["Profile", "NewBlog", "Dashboard", "Logout"];
+const noUserSettings = ["Login", "Register"];
 
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState("");
@@ -157,6 +158,12 @@ const ResponsiveAppBar = () => {
             >
               {currentUser &&
                 settings.map((setting) => (
+                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                    <Typography textAlign="center">{setting}</Typography>
+                  </MenuItem>
+                ))}
+              {!currentUser &&
+                noUserSettings.map((setting) => (
                   <MenuItem key={setting} onClick={handleCloseUserMenu}>
                     <Typography textAlign="center">{setting}</Typography>
                   </MenuItem>
