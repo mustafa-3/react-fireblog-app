@@ -12,16 +12,15 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
-const Navbar = () => {
+const pages = ["Home", "About", "Register"];
+const settings = ["Profile", "NewBlog", "Dashboard", "Logout"];
+
+const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState("");
   const [anchorElUser, setAnchorElUser] = React.useState("");
-
-  const pages = ["Home", "About", "Register"];
-  const settings = ["Profile", "NewBlog", "Logout"];
-  const notCurrentSettings = ["Login", "Register"];
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -38,18 +37,18 @@ const Navbar = () => {
     setAnchorElUser(null);
   };
 
-  const [currentUser, setCurrentUser] = useState(false);
   const navigate = useNavigate();
+  const [currentUser, setCurrentUser] = useState(false);
 
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
+          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+          <Button
+            variant="h2"
+            nowrap="true"
+            onClick={() => navigate("/")}
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -58,10 +57,11 @@ const Navbar = () => {
               letterSpacing: ".3rem",
               color: "inherit",
               textDecoration: "none",
+              fontSize: "1.25rem",
             }}
           >
             FİREBLOG
-          </Typography>
+          </Button>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
@@ -93,13 +93,11 @@ const Navbar = () => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Button
-                    textAlign="center"
-                    onClick={() => navigate(`/${page.toLowerCase()}`)}
-                  >
-                    {page}
-                  </Button>
+                <MenuItem
+                  key={page}
+                  onClick={() => navigate(`/${page.toLowerCase()}`)}
+                >
+                  <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -107,7 +105,7 @@ const Navbar = () => {
           <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
           <Typography
             variant="h5"
-            noWrap
+            nowrap="true"
             component="a"
             href=""
             sx={{
@@ -157,11 +155,12 @@ const Navbar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
+              {currentUser &&
+                settings.map((setting) => (
+                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                    <Typography textAlign="center">{setting}</Typography>
+                  </MenuItem>
+                ))}
             </Menu>
           </Box>
         </Toolbar>
@@ -169,4 +168,4 @@ const Navbar = () => {
     </AppBar>
   );
 };
-export default Navbar;
+export default ResponsiveAppBar;
