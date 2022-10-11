@@ -39,7 +39,7 @@ const ResponsiveAppBar = () => {
   };
 
   const navigate = useNavigate();
-  const [currentUser, setCurrentUser] = useState(false);
+  const [currentUser, setCurrentUser] = useState(true);
 
   return (
     <AppBar position="static">
@@ -158,7 +158,10 @@ const ResponsiveAppBar = () => {
             >
               {currentUser &&
                 settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                  <MenuItem
+                    key={setting}
+                    onClick={() => navigate(`/${setting}`)}
+                  >
                     <Typography textAlign="center">{setting}</Typography>
                   </MenuItem>
                 ))}
