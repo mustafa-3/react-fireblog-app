@@ -14,6 +14,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { useNavigate } from "react-router-dom";
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
@@ -31,7 +32,7 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 }));
 
 export default function Cards({ blogList }) {
-  const { title, imageUrl, content } = blogList;
+  const { title, imageUrl, content, id } = blogList;
   const [expanded, setExpanded] = React.useState(false);
   console.log(blogList);
 
@@ -39,8 +40,13 @@ export default function Cards({ blogList }) {
     setExpanded(!expanded);
   };
 
+  const navigate = useNavigate();
+
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card
+      sx={{ maxWidth: 345 }}
+      onClick={() => navigate(`/detail/${id}`, { state: blogList })}
+    >
       <CardMedia
         component="img"
         height="194"

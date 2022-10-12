@@ -46,7 +46,7 @@ const Main = () => {
           <Grid container spacing={2}>
             {blogList.map((item, index) => {
               return (
-                <Grid item>
+                <Grid item key={index}>
                   <Item>
                     <Cards blogList={item} />
                   </Item>
