@@ -1,9 +1,45 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import blogImage from "../assets/blogImage.png";
 import { Box, Container } from "@mui/system";
 import { Button, CardMedia, TextField, Typography } from "@mui/material";
+import { db } from "../auth/Firebase";
+import { ref, push, set, onValue } from "firebase/database";
+
 const NewBlog = () => {
+  const [blogList, setBlogList] = useState([]);
+  const [title, setTitle] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
+  const [content, setContent] = useState("");
+
+  const writeToDatabase = (e) => {
+    e.preventDefault();
+    const blogRef = ref(db, "blogs");
+    const newBlogRef = push(blogRef);
+    set(newBlogRef, {
+      title: title,
+      imageUrl: imageUrl,
+      content: content,
+    });
+  };
+
+  useEffect(() => {
+    const blogRef = ref(db, "blogs");
+    onValue(blogRef, (snapshot) => {
+      const data = snapshot.val();
+      const blogArray = [];
+      for (let id in data) {
+        blogArray.push({
+          id,
+          ...data[id],
+        });
+      }
+      setBlogList(blogArray);
+    });
+  }, []);
+
+  console.log(blogList);
+
   return (
     <>
       <Navbar />
@@ -25,7 +61,12 @@ const NewBlog = () => {
         <Typography sx={{ margin: ".5rem", fontSize: "1.3rem" }}>
           New Blog
         </Typography>
-        <Box component="form" noValidate sx={{ mt: 1 }}>
+        <Box
+          component="form"
+          onSubmit={writeToDatabase}
+          noValidate
+          sx={{ mt: 1 }}
+        >
           <TextField
             margin="normal"
             required
@@ -35,6 +76,7 @@ const NewBlog = () => {
             name="title"
             autoFocus
             placeholder="Add a title to your Blog"
+            onChange={(e) => setTitle(e.target.value)}
           />
           <TextField
             margin="normal"
@@ -45,6 +87,7 @@ const NewBlog = () => {
             type="text"
             id="Image"
             placeholder="Image URL"
+            onChange={(e) => setImageUrl(e.target.value)}
           />
           <TextField
             margin="normal"
@@ -55,6 +98,7 @@ const NewBlog = () => {
             name="content"
             autoFocus
             placeholder="Please enter your content"
+            onChange={(e) => setContent(e.target.value)}
           />
 
           <Button
