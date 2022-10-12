@@ -5,9 +5,13 @@ import { Box, Container } from "@mui/system";
 import { Button, CardMedia, TextField, Typography } from "@mui/material";
 import { db } from "../auth/Firebase";
 import { ref, push, set, onValue } from "firebase/database";
+import { useContext } from "react";
+import BlogContextProvider, {
+  BlogContext,
+} from "../context/BlogContextProvider";
 
 const NewBlog = () => {
-  const [blogList, setBlogList] = useState([]);
+  const { blogList, setBlogList } = useContext(BlogContext);
   const [title, setTitle] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [content, setContent] = useState("");
