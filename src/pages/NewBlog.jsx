@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import Navbar from "../components/Navbar";
 import blogImage from "../assets/blogImage.png";
 import { Box, Container } from "@mui/system";
 import { Button, CardMedia, TextField, Typography } from "@mui/material";
 import { db } from "../auth/Firebase";
-import { ref, push, set, onValue } from "firebase/database";
+import { ref, push, set } from "firebase/database";
 import { useContext } from "react";
 import BlogContextProvider, {
   BlogContext,
@@ -27,22 +27,8 @@ const NewBlog = () => {
     });
   };
 
-  useEffect(() => {
-    const blogRef = ref(db, "blogs");
-    onValue(blogRef, (snapshot) => {
-      const data = snapshot.val();
-      const blogArray = [];
-      for (let id in data) {
-        blogArray.push({
-          id,
-          ...data[id],
-        });
-      }
-      setBlogList(blogArray);
-    });
-  }, []);
-
-  console.log(blogList);
+  
+  // console.log(blogList);
 
   return (
     <>
