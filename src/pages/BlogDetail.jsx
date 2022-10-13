@@ -6,9 +6,30 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useLocation } from "react-router-dom";
+import { dbRef } from "../auth/Firebase";
+import { child, get } from "firebase/database";
+import { useEffect } from "react";
 
 export default function BlogDetail() {
-  const { state } = useLocation;
+  const { state } = useLocation();
+  // console.log(state);
+
+  const userId = "-NEBLjtNITw5NNcIXxDM"
+
+  
+
+ useEffect(() => {
+  get(child(dbRef, `blogs/${userId}`)).then((snapshot) => {
+    if (snapshot.exists()) {
+      console.log(snapshot.val());
+    } else {
+      console.log("No data available");
+    }
+  })
+ }, [])
+ 
+   
+
 
   return (
     <Card sx={{ maxWidth: 345 }}>

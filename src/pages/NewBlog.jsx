@@ -1,10 +1,10 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import blogImage from "../assets/blogImage.png";
 import { Box, Container } from "@mui/system";
 import { Button, CardMedia, TextField, Typography } from "@mui/material";
 import { db } from "../auth/Firebase";
-import { ref, push, set } from "firebase/database";
+import { ref, push, set, get, child } from "firebase/database";
 import { useContext } from "react";
 import BlogContextProvider, {
   BlogContext,
@@ -27,7 +27,7 @@ const NewBlog = () => {
     });
   };
 
-  
+
   // console.log(blogList);
 
   return (

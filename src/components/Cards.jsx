@@ -45,7 +45,7 @@ export default function Cards({ blogList }) {
   return (
     <Card
       sx={{ maxWidth: 345 }}
-      onClick={() => navigate(`/detail/${id}`, { state: blogList })}
+      onClick={() => navigate(`/detail`, { state: blogList })}
     >
       <CardMedia
         component="img"
@@ -56,7 +56,7 @@ export default function Cards({ blogList }) {
       <CardHeader title={title} subheader="September 14, 2016" />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          {content}
+          {id}
         </Typography>
       </CardContent>
       <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe" />
