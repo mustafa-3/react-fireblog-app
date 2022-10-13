@@ -42,6 +42,7 @@ const ResponsiveAppBar = () => {
 
   const navigate = useNavigate();
   const { currentUser } = useContext(AuthContext);
+  console.log(currentUser);
 
   return (
     <AppBar position="static">
@@ -159,7 +160,7 @@ const ResponsiveAppBar = () => {
               onClose={handleCloseUserMenu}
             >
               {currentUser && (
-                <>
+                <Box>
                   <MenuItem>
                     <Typography textAlign="center">Profile</Typography>
                   </MenuItem>
@@ -172,7 +173,7 @@ const ResponsiveAppBar = () => {
                   <MenuItem onClick={logOut()}>
                     <Typography textAlign="center">Logout</Typography>
                   </MenuItem>
-                </>
+                </Box>
               )}
               {!currentUser &&
                 noUserSettings.map((setting) => (

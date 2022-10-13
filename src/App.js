@@ -4,11 +4,11 @@ import AppRouter from "./router/AppRouter";
 
 function App() {
   return (
-    <BlogContextProvider>
-      <AuthContextProvider>
+    <AuthContextProvider>
+      <BlogContextProvider>
         <AppRouter />
-      </AuthContextProvider>
-    </BlogContextProvider>
+      </BlogContextProvider>
+    </AuthContextProvider>
   );
 }
 

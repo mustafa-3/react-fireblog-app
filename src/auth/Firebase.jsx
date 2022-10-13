@@ -33,24 +33,25 @@ export const signUp = async (email, password, navigate, displayName) => {
       email,
       password
     );
-    
 
     await updateProfile(auth.currentUser, {
       displayName: displayName,
     });
     navigate("/");
+    console.log(userCredential);
   } catch (error) {
     console.log(error);
   }
 };
-export const login = async (email, password,navigate) => {
+export const login = async (email, password, navigate) => {
   try {
     let userCredential = await signInWithEmailAndPassword(
       auth,
       email,
       password
     );
-    navigate("/")
+    navigate("/");
+    console.log(userCredential);
   } catch (error) {
     console.log(error);
   }
@@ -62,7 +63,6 @@ export const signInWithGoogle = (navigate) => {
       console.log(result);
       navigate("/");
     })
-
     .catch((error) => {
       console.log(error);
     });

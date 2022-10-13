@@ -12,11 +12,11 @@ import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useState } from "react";
 import { login, signInWithGoogle } from "../auth/Firebase";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function Copyright(props) {
+function Login(props) {
   return (
     <Typography
       variant="body2"
@@ -26,7 +26,7 @@ function Copyright(props) {
     >
       {"Copyright © "}
       <Link color="inherit" href="https://mui.com/">
-        Fireblog
+        Your Website
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -36,15 +36,20 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function Login() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    login(email, password, navigate);
-  };
-
+export default function SignInSide() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const navigate = useNavigate();
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    login(email, password, navigate);
+    const data = new FormData(event.currentTarget);
+    console.log({
+      email: data.get("email"),
+      password: data.get("password"),
+    });
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -118,39 +123,32 @@ export default function Login() {
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2 }}
+                sx={{ mt: 3, mb: 1 }}
               >
-                Sign In
+                Login
               </Button>
               <Button
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ mb: 2 }}
+                sx={{ mt: 1, mb: 2 }}
                 onClick={() => signInWithGoogle(navigate)}
               >
-                Sign In With Google
+                Sign in With Google
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link href="#" variant="body2">
-                    Forgot password?
-                  </Link>
-                </Grid>
-                <Grid item>
-                  <Link href="/register" variant="body2">
-                    {"Don't have an account? Sign Up"}
-                  </Link>
-                </Grid>
-              </Grid>
-              <Grid container>
-                <Grid item xs>
                   <Link href="/" variant="body2">
-                    Return to Homepage
+                    Take me Home
+                  </Link>
+                </Grid>
+                <Grid item xs>
+                  <Link href="/register" variant="body2">
+                    Don't have an account yet? Sign Up
                   </Link>
                 </Grid>
               </Grid>
-              <Copyright sx={{ mt: 5 }} />
+              {/* <Copyright sx={{ mt: 5 }} /> */}
             </Box>
           </Box>
         </Grid>

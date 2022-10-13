@@ -16,7 +16,7 @@ import { useState } from "react";
 import { signUp } from "../auth/Firebase";
 import { useNavigate } from "react-router-dom";
 
-function Copyright(props) {
+function Login(props) {
   return (
     <Typography
       variant="body2"
@@ -36,18 +36,23 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function Register() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    signUp(email, password, navigate);
-  };
-
+export default function SignInSide() {
   const [firstName, setFirstName] = useState();
   const [lastName, setLastName] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const navigate = useNavigate();
-  const displayName = `${firstName} ${lastName}`
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const displayName = `${firstName} ${lastName}`;
+    signUp(email, password, navigate, displayName);
+    const data = new FormData(event.currentTarget);
+    console.log({
+      email: data.get("email"),
+      password: data.get("password"),
+    });
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -96,20 +101,22 @@ export default function Register() {
                 required
                 fullWidth
                 id="firstName"
-                label="firstName"
+                label="First name"
                 name="firstName"
+                autoComplete="firstName"
                 autoFocus
-                onChange={(e) => setFirstName(e.target.value)}
+                onChange={(e) => setFirstName(e.target.value.toUpperCase())}
               />
               <TextField
                 margin="normal"
                 required
                 fullWidth
                 id="lastName"
-                label="lastName"
+                label="Last name"
                 name="lastName"
+                autoComplete="lastName"
                 autoFocus
-                onChange={(e) => setLastName(e.target.value)}
+                onChange={(e) => setLastName(e.target.value.toUpperCase())}
               />
               <TextField
                 margin="normal"
@@ -133,6 +140,7 @@ export default function Register() {
                 autoComplete="current-password"
                 onChange={(e) => setPassword(e.target.value)}
               />
+
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
@@ -143,28 +151,21 @@ export default function Register() {
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
-                Sign In
+                Sign Up
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link href="#" variant="body2">
-                    Forgot password?
-                  </Link>
-                </Grid>
-                <Grid item>
-                  <Link href="/login" variant="body2">
-                    {"Do you have an account? Login"}
-                  </Link>
-                </Grid>
-              </Grid>
-              <Grid container>
-                <Grid item xs>
                   <Link href="/" variant="body2">
-                    Return to homepage
+                    Take me Home
+                  </Link>
+                </Grid>
+                <Grid item xs>
+                  <Link href="/login" variant="body2">
+                    Do you have an account? Log in
                   </Link>
                 </Grid>
               </Grid>
-              <Copyright sx={{ mt: 5 }} />
+              {/* <Copyright sx={{ mt: 5 }} /> */}
             </Box>
           </Box>
         </Grid>
