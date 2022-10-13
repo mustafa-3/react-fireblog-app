@@ -39,12 +39,12 @@ const theme = createTheme();
 export default function Login() {
   const handleSubmit = (event) => {
     event.preventDefault();
-    login(email, password,navigate);
+    login(email, password, navigate);
   };
 
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   return (
     <ThemeProvider theme={theme}>
@@ -126,7 +126,7 @@ export default function Login() {
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2 }}
+                sx={{ mb: 2 }}
                 onClick={() => signInWithGoogle(navigate)}
               >
                 Sign In With Google
