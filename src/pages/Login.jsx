@@ -12,6 +12,9 @@ import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useState } from "react";
+import { login, signInWithGoogle } from "../auth/Firebase";
+import { useNavigate } from "react-router-dom";
 
 function Copyright(props) {
   return (
@@ -36,12 +39,12 @@ const theme = createTheme();
 export default function Login() {
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+    login(email, password,navigate);
   };
+
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const navigate = useNavigate()
 
   return (
     <ThemeProvider theme={theme}>
@@ -94,6 +97,7 @@ export default function Login() {
                 name="email"
                 autoComplete="email"
                 autoFocus
+                onChange={(e) => setEmail(e.target.value)}
               />
               <TextField
                 margin="normal"
@@ -104,6 +108,7 @@ export default function Login() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                onChange={(e) => setPassword(e.target.value)}
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
@@ -116,6 +121,15 @@ export default function Login() {
                 sx={{ mt: 3, mb: 2 }}
               >
                 Sign In
+              </Button>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+                onClick={() => signInWithGoogle(navigate)}
+              >
+                Sign In With Google
               </Button>
               <Grid container>
                 <Grid item xs>

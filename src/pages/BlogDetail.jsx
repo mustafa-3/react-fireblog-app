@@ -9,9 +9,9 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { dbRef } from "../auth/Firebase";
-import { child, get } from "firebase/database";
-import { useNavigate, useParams } from "react-router-dom";
+import { db, dbRef } from "../auth/Firebase";
+import { child, get, ref, remove } from "firebase/database";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useState } from "react";
 import Box from "@mui/material/Box";
@@ -23,8 +23,16 @@ export default function RecipeReviewCard() {
   const [data, setData] = useState("");
   const [toggle, setToggle] = useState(false);
   const navigate = useNavigate();
+  // console.log(data);
 
   const { id } = useParams();
+  // const { state } = useLocation();
+  console.log(id);
+
+  const deleteFromDatabase = () => {
+    remove(ref(db, `blogs/${id}`));
+    navigate("/");
+  };
 
   useEffect(() => {
     get(child(dbRef, `blogs/${id}`))
@@ -40,7 +48,7 @@ export default function RecipeReviewCard() {
         console.error(error);
       });
   }, [id]);
-  console.log(data);
+
   return (
     <>
       <Navbar />
@@ -61,7 +69,12 @@ export default function RecipeReviewCard() {
               </Typography>
             </CardContent>
             <Box sx={{ marginLeft: 2 }}>
-              {<Avatar sx={{ bgcolor: red[500] }} aria-label="recipe" />}
+              {
+                <Avatar
+                  sx={{ bgcolor: red[500], fontSize: ".5rem" }}
+                  // aria-label="recipe"
+                />
+              }
             </Box>
 
             <CardActions
@@ -75,15 +88,14 @@ export default function RecipeReviewCard() {
               >
                 <FavoriteIcon />
               </IconButton>
+
               <Box sx={{ display: "flex", gap: 1 }}>
-                <Button variant="outlined" onClick={() => navigate("/")}>
+                <Button variant="contained" onClick={() => navigate("/")}>
                   UPDATE
                 </Button>
-                <Button variant="outlined" onClick={() => navigate(-1)}>
+                <Button variant="contained" onClick={deleteFromDatabase}>
                   DELETE
                 </Button>
-              </Box>
-              <Box sx={{ display: "flex", gap: 1 }}>
                 <Button variant="outlined" onClick={() => navigate("/")}>
                   HOME
                 </Button>

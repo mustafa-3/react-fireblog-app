@@ -1,5 +1,15 @@
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref } from "firebase/database";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  updateProfile,
+  signOut,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAZKLWGhOqwxkdCWH9tVc-twnwUmIaK6Kw",
@@ -12,6 +22,61 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-
+const auth = getAuth(app);
 export const db = getDatabase(app);
 export const dbRef = ref(getDatabase());
+
+export const signUp = async (email, password, navigate, displayName) => {
+  try {
+    let userCredential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    
+
+    await updateProfile(auth.currentUser, {
+      displayName: displayName,
+    });
+    navigate("/");
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const login = async (email, password,navigate) => {
+  try {
+    let userCredential = await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    navigate("/")
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const signInWithGoogle = (navigate) => {
+  const provider = new GoogleAuthProvider();
+  signInWithPopup(auth, provider)
+    .then((result) => {
+      console.log(result);
+      navigate("/");
+    })
+
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+export const logOut = () => {
+  signOut(auth);
+};
+export const userObserver = (setCurrentUser) => {
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      setCurrentUser(user);
+    } else {
+      setCurrentUser(false);
+    }
+  });
+};

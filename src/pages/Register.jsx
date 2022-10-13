@@ -12,6 +12,9 @@ import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useState } from "react";
+import { signUp } from "../auth/Firebase";
+import { useNavigate } from "react-router-dom";
 
 function Copyright(props) {
   return (
@@ -36,12 +39,15 @@ const theme = createTheme();
 export default function Register() {
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+    signUp(email, password, navigate);
   };
+
+  const [firstName, setFirstName] = useState();
+  const [lastName, setLastName] = useState();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const navigate = useNavigate();
+  const displayName = `${firstName} ${lastName}`
 
   return (
     <ThemeProvider theme={theme}>
@@ -77,7 +83,7 @@ export default function Register() {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Sign in
+              Register
             </Typography>
             <Box
               component="form"
@@ -89,11 +95,32 @@ export default function Register() {
                 margin="normal"
                 required
                 fullWidth
+                id="firstName"
+                label="firstName"
+                name="firstName"
+                autoFocus
+                onChange={(e) => setFirstName(e.target.value)}
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="lastName"
+                label="lastName"
+                name="lastName"
+                autoFocus
+                onChange={(e) => setLastName(e.target.value)}
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
                 id="email"
                 label="Email Address"
                 name="email"
                 autoComplete="email"
                 autoFocus
+                onChange={(e) => setEmail(e.target.value)}
               />
               <TextField
                 margin="normal"
@@ -104,6 +131,7 @@ export default function Register() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                onChange={(e) => setPassword(e.target.value)}
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}

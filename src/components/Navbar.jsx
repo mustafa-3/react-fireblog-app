@@ -14,9 +14,11 @@ import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { logOut } from "../auth/Firebase";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContextProvider";
 
 const pages = ["Home", "Login", "Register"];
-const settings = ["Profile", "NewBlog", "Dashboard", "Logout"];
 const noUserSettings = ["Login", "Register"];
 
 const ResponsiveAppBar = () => {
@@ -39,7 +41,7 @@ const ResponsiveAppBar = () => {
   };
 
   const navigate = useNavigate();
-  const [currentUser, setCurrentUser] = useState(true);
+  const [currentUser, setCurrentUser] = useState(false);
 
   return (
     <AppBar position="static">
@@ -156,15 +158,22 @@ const ResponsiveAppBar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {currentUser &&
-                settings.map((setting) => (
-                  <MenuItem
-                    key={setting}
-                    onClick={() => navigate(`/${setting}`)}
-                  >
-                    <Typography textAlign="center">{setting}</Typography>
+              {currentUser && (
+                <>
+                  <MenuItem>
+                    <Typography textAlign="center">Profile</Typography>
                   </MenuItem>
-                ))}
+                  <MenuItem>
+                    <Typography textAlign="center">NewBlog</Typography>
+                  </MenuItem>
+                  <MenuItem>
+                    <Typography textAlign="center">Dashboard</Typography>
+                  </MenuItem>
+                  <MenuItem onClick={logOut()}>
+                    <Typography textAlign="center">Logout</Typography>
+                  </MenuItem>
+                </>
+              )}
               {!currentUser &&
                 noUserSettings.map((setting) => (
                   <MenuItem key={setting} onClick={handleCloseUserMenu}>

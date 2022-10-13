@@ -51,10 +51,7 @@ export default function Cards({ blogList }) {
           <FavoriteIcon />
         </IconButton>
         <Box>
-          <Button
-            variant="outlined"
-            onClick={() => navigate(`/detail/${id}`, { state: blogList })}
-          >
+          <Button variant="outlined" onClick={() => navigate(`/detail/${id}`)}>
             VIEW MORE
           </Button>
         </Box>
