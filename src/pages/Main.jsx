@@ -7,7 +7,7 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import { BlogContext } from "../context/BlogContextProvider";
-import { ref, push, set, onValue } from "firebase/database";
+import { ref, onValue } from "firebase/database";
 import { db } from "../auth/Firebase";
 import { Container } from "@mui/material";
 
@@ -36,18 +36,25 @@ const Main = () => {
       }
       setBlogList(blogArray);
     });
-  }, []);
+  }, [setBlogList]);
 
   return (
     <>
       <Navbar />
       <Container>
-        <Box>
-          <Grid container spacing={2}>
+        <Box >
+          <Grid
+            container
+            spacing={2}
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
             {blogList.map((item, index) => {
               return (
                 <Grid item key={index}>
-                  <Item>
+                  <Item >
                     <Cards blogList={item} />
                   </Item>
                 </Grid>

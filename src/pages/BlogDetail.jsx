@@ -9,18 +9,20 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import ShareIcon from "@mui/icons-material/Share";
 import { dbRef } from "../auth/Firebase";
 import { child, get } from "firebase/database";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useState } from "react";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Navbar from "../components/Navbar";
+import { Button } from "@mui/material";
 
 export default function RecipeReviewCard() {
   const [data, setData] = useState("");
+  const [toggle, setToggle] = useState(false);
+  const navigate = useNavigate();
 
   const { id } = useParams();
 
@@ -43,13 +45,14 @@ export default function RecipeReviewCard() {
     <>
       <Navbar />
 
-      <Container maxWidth="sm">
-        <Box sx={{ bgcolor: "#cfe8fc", height: "100vh" }}>
-          <Card sx={{ maxWidth: 845, marginTop: 4 }}>
+      <Container maxWidth="md">
+        <Box sx={{ height: "100vh" }}>
+          <Card sx={{ marginTop: 4 }}>
             <CardMedia
               component="img"
               image={data.imageUrl}
               alt="Paella dish"
+              sx={{ maxHeight: 500 }}
             />
             <CardHeader title={data.title} subheader="September 14, 2016" />
             <CardContent>
@@ -57,17 +60,37 @@ export default function RecipeReviewCard() {
                 {data.content}
               </Typography>
             </CardContent>
-            <Box>
+            <Box sx={{ marginLeft: 2 }}>
               {<Avatar sx={{ bgcolor: red[500] }} aria-label="recipe" />}
             </Box>
 
-            <CardActions disableSpacing>
-              <IconButton aria-label="add to favorites">
+            <CardActions
+              disableSpacing
+              sx={{ display: "flex", justifyContent: "space-between" }}
+            >
+              <IconButton
+                aria-label="add to favorites"
+                onClick={() => setToggle(!toggle)}
+                sx={{ color: toggle ? "red" : "grey" }}
+              >
                 <FavoriteIcon />
               </IconButton>
-              <IconButton aria-label="share">
-                <ShareIcon />
-              </IconButton>
+              <Box sx={{ display: "flex", gap: 1 }}>
+                <Button variant="outlined" onClick={() => navigate("/")}>
+                  UPDATE
+                </Button>
+                <Button variant="outlined" onClick={() => navigate(-1)}>
+                  DELETE
+                </Button>
+              </Box>
+              <Box sx={{ display: "flex", gap: 1 }}>
+                <Button variant="outlined" onClick={() => navigate("/")}>
+                  HOME
+                </Button>
+                <Button variant="outlined" onClick={() => navigate(-1)}>
+                  BACK
+                </Button>
+              </Box>
             </CardActions>
           </Card>
         </Box>
