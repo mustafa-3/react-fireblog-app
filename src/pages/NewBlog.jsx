@@ -4,14 +4,9 @@ import blogImage from "../assets/blogImage.png";
 import { Box, Container } from "@mui/system";
 import { Button, CardMedia, TextField, Typography } from "@mui/material";
 import { db } from "../auth/Firebase";
-import { ref, push, set, get, child } from "firebase/database";
-import { useContext } from "react";
-import BlogContextProvider, {
-  BlogContext,
-} from "../context/BlogContextProvider";
+import { ref, push, set } from "firebase/database";
 
 const NewBlog = () => {
-  const { blogList, setBlogList } = useContext(BlogContext);
   const [title, setTitle] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [content, setContent] = useState("");
@@ -26,9 +21,6 @@ const NewBlog = () => {
       content: content,
     });
   };
-
-
-  // console.log(blogList);
 
   return (
     <>
