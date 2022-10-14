@@ -170,7 +170,7 @@ const ResponsiveAppBar = () => {
                   <MenuItem>
                     <Typography textAlign="center">Dashboard</Typography>
                   </MenuItem>
-                  <MenuItem onClick={logOut()}>
+                  <MenuItem onClick={() => logOut()}>
                     <Typography textAlign="center">Logout</Typography>
                   </MenuItem>
                 </Box>

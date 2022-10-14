@@ -63,6 +63,7 @@ export const signInWithGoogle = (navigate) => {
       console.log(result);
       navigate("/");
     })
+
     .catch((error) => {
       console.log(error);
     });
