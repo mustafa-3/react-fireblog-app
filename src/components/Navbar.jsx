@@ -17,6 +17,9 @@ import { useState } from "react";
 import { logOut } from "../auth/Firebase";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContextProvider";
+import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
+import FlightLandIcon from "@mui/icons-material/FlightLand";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 const pages = ["Home", "Login", "Register"];
 const settings = ["Profile", "NewBlog", "Dashboard"];
@@ -48,7 +51,9 @@ const ResponsiveAppBar = () => {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+          <FlightTakeoffIcon
+            sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
+          />
           <Button
             variant="h2"
             nowrap="true"
@@ -106,7 +111,7 @@ const ResponsiveAppBar = () => {
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+          <FlightLandIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
           <Typography
             variant="h5"
             nowrap="true"
@@ -123,7 +128,7 @@ const ResponsiveAppBar = () => {
               textDecoration: "none",
             }}
           >
-            LOGO
+            FİREBLOG
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
@@ -143,7 +148,7 @@ const ResponsiveAppBar = () => {
             </Typography>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <AccountCircleIcon sx={{ fontSize: "2rem" }} />
               </IconButton>
             </Tooltip>
             <Menu

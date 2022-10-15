@@ -59,6 +59,7 @@ const Main = () => {
             sx={{
               display: "flex",
               justifyContent: "center",
+              marginTop: ".5rem",
             }}
           >
             {blogList.map((item, index) => {

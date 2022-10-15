@@ -33,7 +33,7 @@ export default function Cards({ blogList }) {
       <CardHeader title={title} subheader={date} />
       <CardContent
         sx={{
-          height: "10rem",
+          height: "8rem",
           overflow: "hidden",
         }}
       >
