@@ -167,7 +167,7 @@ const ResponsiveAppBar = () => {
                   <MenuItem>
                     <Typography textAlign="center">Profile</Typography>
                   </MenuItem>
-                  <MenuItem>
+                  <MenuItem onClick={() => navigate("/newblog")}>
                     <Typography textAlign="center">NewBlog</Typography>
                   </MenuItem>
                   <MenuItem>

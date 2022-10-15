@@ -15,7 +15,7 @@ import { Box } from "@mui/system";
 import { useState } from "react";
 
 export default function Cards({ blogList }) {
-  const { title, imageUrl, content, id } = blogList;
+  const { title, imageUrl, content, id, author, date } = blogList;
   const [toggle, setToggle] = useState(false);
 
   console.log(blogList);
@@ -32,12 +32,13 @@ export default function Cards({ blogList }) {
         sx={{ cursor: "pointer" }}
         onClick={() => navigate(`/detail/${id}`, { state: blogList })}
       />
-      <CardHeader title={title} subheader="September 14, 2016" />
+      <CardHeader title={title} subheader={date} />
       <CardContent sx={{ height: "10rem" }}>
         <Typography variant="body2" color="text.secondary">
           {content}
         </Typography>
       </CardContent>
+      <h6>{author}</h6>
       <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe" />
       <CardActions
         disableSpacing

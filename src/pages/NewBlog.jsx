@@ -5,11 +5,18 @@ import { Box, Container } from "@mui/system";
 import { Button, CardMedia, TextField, Typography } from "@mui/material";
 import { db } from "../auth/Firebase";
 import { ref, push, set } from "firebase/database";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContextProvider";
+import { useNavigate } from "react-router-dom";
 
 const NewBlog = () => {
   const [title, setTitle] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [content, setContent] = useState("");
+  const { currentUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const date = new Date().toString().split(" ");
 
   const writeToDatabase = (e) => {
     e.preventDefault();
@@ -19,7 +26,10 @@ const NewBlog = () => {
       title: title,
       imageUrl: imageUrl,
       content: content,
+      date: date,
+      author: currentUser.email,
     });
+    navigate("/");
   };
 
   return (
