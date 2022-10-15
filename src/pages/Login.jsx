@@ -53,7 +53,7 @@ const theme = createTheme();
 export default function Login() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const [forgotEmail, setForgotEmail] = useState()
+  const [forgotEmail, setForgotEmail] = useState();
   const navigate = useNavigate();
 
   const [open, setOpen] = React.useState(false);
@@ -134,10 +134,10 @@ export default function Login() {
                 autoComplete="current-password"
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <FormControlLabel
+              {/* <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
-              />
+              /> */}
               <Button
                 type="submit"
                 fullWidth
@@ -193,7 +193,12 @@ export default function Login() {
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          <Box sx={style} component="form" noValidate onSubmit={() => passwordReset(forgotEmail)}>
+          <Box
+            sx={style}
+            component="form"
+            noValidate
+            onSubmit={() => passwordReset(forgotEmail)}
+          >
             <TextField
               margin="normal"
               required

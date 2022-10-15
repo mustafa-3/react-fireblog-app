@@ -16,27 +16,27 @@ import { useState } from "react";
 import { signUp } from "../auth/Firebase";
 import { useNavigate } from "react-router-dom";
 
-function Login(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+// function Copyright(props) {
+//   return (
+//     <Typography
+//       variant="body2"
+//       color="text.secondary"
+//       align="center"
+//       {...props}
+//     >
+//       {"Copyright © "}
+//       <Link color="inherit" href="https://mui.com/">
+//         Your Website
+//       </Link>{" "}
+//       {new Date().getFullYear()}
+//       {"."}
+//     </Typography>
+//   );
+// }
 
 const theme = createTheme();
 
-export default function SignInSide() {
+export default function Register() {
   const [firstName, setFirstName] = useState();
   const [lastName, setLastName] = useState();
   const [email, setEmail] = useState();
@@ -141,10 +141,6 @@ export default function SignInSide() {
                 onChange={(e) => setPassword(e.target.value)}
               />
 
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
               <Button
                 type="submit"
                 fullWidth
@@ -156,7 +152,7 @@ export default function SignInSide() {
               <Grid container>
                 <Grid item xs>
                   <Link href="/" variant="body2">
-                    Take me Home
+                    Back to homapage
                   </Link>
                 </Grid>
                 <Grid item xs>
