@@ -18,8 +18,6 @@ export default function Cards({ blogList }) {
   const { title, imageUrl, content, id, author, date } = blogList;
   const [toggle, setToggle] = useState(false);
 
-  console.log(blogList);
-
   const navigate = useNavigate();
 
   return (

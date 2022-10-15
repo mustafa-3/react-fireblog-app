@@ -42,7 +42,6 @@ const ResponsiveAppBar = () => {
 
   const navigate = useNavigate();
   const { currentUser } = useContext(AuthContext);
-  console.log(currentUser);
 
   return (
     <AppBar position="static">

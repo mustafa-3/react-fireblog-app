@@ -27,12 +27,9 @@ export default function RecipeReviewCard() {
   const [data, setData] = useState("");
   const [toggle, setToggle] = useState(false);
   const navigate = useNavigate();
-  // console.log(data);
 
   const { id } = useParams();
   const { state } = useLocation();
-  console.log(id);
-  console.log(state);
 
   const deleteFromDatabase = () => {
     remove(ref(db, `blogs/${id}`));
@@ -43,7 +40,6 @@ export default function RecipeReviewCard() {
     get(child(dbRef, `blogs/${id}`))
       .then((snapshot) => {
         if (snapshot.exists()) {
-          // console.log(snapshot.val());
           setData(snapshot.val());
         } else {
           console.log("No data available");
@@ -55,13 +51,10 @@ export default function RecipeReviewCard() {
   }, [id]);
 
   const { currentUser } = useContext(AuthContext);
-  const { blogList } = useContext(BlogContext);
-  console.log(blogList);
 
   return (
     <>
       <Navbar />
-
       <Container maxWidth="md">
         <Box sx={{ height: "100vh" }}>
           <Card sx={{ marginTop: 4 }}>
@@ -104,7 +97,7 @@ export default function RecipeReviewCard() {
               </IconButton>
 
               <Box sx={{ display: "flex", gap: 1 }}>
-                {currentUser.email == blogList.author && (
+                {currentUser.email == state.author && (
                   <>
                     <Button variant="contained" onClick={() => navigate("/")}>
                       UPDATE
