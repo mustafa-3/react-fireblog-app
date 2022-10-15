@@ -8,6 +8,7 @@ import BasicModal from "../pages/Modal";
 import NewBlog from "../pages/NewBlog";
 import Profile from "../pages/Profile";
 import Register from "../pages/Register";
+import PrivateRouter from "./PrivateRouter";
 
 const AppRouter = () => {
   return (
@@ -17,10 +18,16 @@ const AppRouter = () => {
         <Route path="/home" element={<Main />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/detail/:id" element={<BlogDetail />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/newblog" element={<NewBlog />} />
-        <Route path="/modal" element={<BasicModal />} />
+        <Route path="/dashboard" element={<Main />} />
+        <Route path="/detail/:id" element={<PrivateRouter />}>
+          <Route path="" element={<BlogDetail />} />
+        </Route>
+        <Route path="/profile" element={<PrivateRouter />}>
+          <Route path="" element={<Profile />} />
+        </Route>
+        <Route path="/newblog" element={<PrivateRouter />}>
+          <Route path="" element={<NewBlog />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

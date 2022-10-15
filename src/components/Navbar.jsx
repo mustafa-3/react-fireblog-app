@@ -19,6 +19,7 @@ import { useContext } from "react";
 import { AuthContext } from "../context/AuthContextProvider";
 
 const pages = ["Home", "Login", "Register"];
+const settings = ["Profile", "NewBlog", "Dashboard"];
 const noUserSettings = ["Login", "Register"];
 
 const ResponsiveAppBar = () => {
@@ -163,7 +164,7 @@ const ResponsiveAppBar = () => {
             >
               {currentUser && (
                 <Box>
-                  <MenuItem>
+                  {/* <MenuItem>
                     <Typography textAlign="center">Profile</Typography>
                   </MenuItem>
                   <MenuItem onClick={() => navigate("/newblog")}>
@@ -172,6 +173,17 @@ const ResponsiveAppBar = () => {
                   <MenuItem>
                     <Typography textAlign="center">Dashboard</Typography>
                   </MenuItem>
+                  <MenuItem onClick={() => logOut()}>
+                    <Typography textAlign="center">Logout</Typography>
+                  </MenuItem> */}
+                  {settings.map((setting) => (
+                    <MenuItem
+                      key={setting}
+                      onClick={() => navigate(`/${setting.toLowerCase()}`)}
+                    >
+                      <Typography textAlign="center">{setting}</Typography>
+                    </MenuItem>
+                  ))}
                   <MenuItem onClick={() => logOut()}>
                     <Typography textAlign="center">Logout</Typography>
                   </MenuItem>
