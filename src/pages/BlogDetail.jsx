@@ -64,7 +64,7 @@ export default function RecipeReviewCard() {
               alt="Paella dish"
               sx={{ maxHeight: 500 }}
             />
-            <CardHeader title={data.title} subheader="September 14, 2016" />
+            <CardHeader title={data.title} subheader={state.date} />
             <CardContent>
               <Typography variant="body2" color="text.secondary">
                 {data.content}

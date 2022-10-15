@@ -10,10 +10,12 @@ import { BlogContext } from "../context/BlogContextProvider";
 import { ref, onValue } from "firebase/database";
 import { db } from "../auth/Firebase";
 import { Container } from "@mui/material";
+import { useState } from "react";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const Main = () => {
   const { blogList, setBlogList } = useContext(BlogContext);
-  // console.log(blogList);
+  const [isLoading, setIsLoading] = useState(false);
 
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -24,6 +26,7 @@ const Main = () => {
   }));
 
   useEffect(() => {
+    setIsLoading(true);
     const userRef = ref(db, "blogs");
     onValue(userRef, (snapshot) => {
       const data = snapshot.val();
@@ -34,6 +37,7 @@ const Main = () => {
           ...data[id],
         });
       }
+      setIsLoading(false);
       setBlogList(blogArray);
     });
   }, [setBlogList]);
@@ -42,7 +46,13 @@ const Main = () => {
     <>
       <Navbar />
       <Container>
-        <Box >
+        {isLoading && (
+          <Box sx={{ display: "flex", justifyContent: "center", marginTop: 4 }}>
+            <CircularProgress />
+          </Box>
+        )}
+
+        <Box>
           <Grid
             container
             spacing={2}
@@ -54,7 +64,7 @@ const Main = () => {
             {blogList.map((item, index) => {
               return (
                 <Grid item key={index}>
-                  <Item >
+                  <Item>
                     <Cards blogList={item} />
                   </Item>
                 </Grid>
