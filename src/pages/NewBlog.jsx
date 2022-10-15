@@ -16,7 +16,7 @@ const NewBlog = () => {
   const { currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const date = new Date().toString().split(" ");
+  const date = new Date().toString();
 
   const writeToDatabase = (e) => {
     e.preventDefault();

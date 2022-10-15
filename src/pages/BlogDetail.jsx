@@ -18,6 +18,10 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Navbar from "../components/Navbar";
 import { Button } from "@mui/material";
+import { updateCurrentUser } from "firebase/auth";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContextProvider";
+import { BlogContext } from "../context/BlogContextProvider";
 
 export default function RecipeReviewCard() {
   const [data, setData] = useState("");
@@ -48,6 +52,9 @@ export default function RecipeReviewCard() {
         console.error(error);
       });
   }, [id]);
+
+  const { currentUser } = useContext(AuthContext);
+  const { blogList } = useContext(BlogContext);
 
   return (
     <>
@@ -90,12 +97,17 @@ export default function RecipeReviewCard() {
               </IconButton>
 
               <Box sx={{ display: "flex", gap: 1 }}>
-                <Button variant="contained" onClick={() => navigate("/")}>
-                  UPDATE
-                </Button>
-                <Button variant="contained" onClick={deleteFromDatabase}>
-                  DELETE
-                </Button>
+                {currentUser.email == blogList.author && (
+                  <>
+                    <Button variant="contained" onClick={() => navigate("/")}>
+                      UPDATE
+                    </Button>
+                    <Button variant="contained" onClick={deleteFromDatabase}>
+                      DELETE
+                    </Button>
+                  </>
+                )}
+
                 <Button variant="outlined" onClick={() => navigate("/")}>
                   HOME
                 </Button>
