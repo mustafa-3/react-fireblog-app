@@ -83,9 +83,9 @@ export const userObserver = (setCurrentUser) => {
   });
 };
 
-export const passwordReset = async (email) => {
+export const passwordReset = async (forgotEmail) => {
   //? Email yoluyla şifre sıfırlama için kullanılan firebase metodu
-  await sendPasswordResetEmail(auth, email)
+  await sendPasswordResetEmail(auth, forgotEmail)
     .then(() => {
       // Password reset email sent!
       alert("sadas");
