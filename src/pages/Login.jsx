@@ -12,11 +12,12 @@ import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { login, signInWithGoogle } from "../auth/Firebase";
+import { login, passwordReset, signInWithGoogle } from "../auth/Firebase";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import GoogleIcon from '@mui/icons-material/Google';
 
-function Login(props) {
+function Copyright(props) {
   return (
     <Typography
       variant="body2"
@@ -36,7 +37,7 @@ function Login(props) {
 
 const theme = createTheme();
 
-export default function SignInSide() {
+export default function Login() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const navigate = useNavigate();
@@ -134,12 +135,13 @@ export default function SignInSide() {
                 sx={{ mt: 1, mb: 2 }}
                 onClick={() => signInWithGoogle(navigate)}
               >
+                <GoogleIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
                 Sign in With Google
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link href="/" variant="body2">
-                    Take me Home
+                  <Link href="/" variant="body2" onClick={() => passwordReset(email)}>
+                    Forgot password?
                   </Link>
                 </Grid>
                 <Grid item xs>
@@ -148,7 +150,14 @@ export default function SignInSide() {
                   </Link>
                 </Grid>
               </Grid>
-              {/* <Copyright sx={{ mt: 5 }} /> */}
+              <Grid container>
+                <Grid item xs>
+                  <Link href="/" variant="body2">
+                    Back to Homepage
+                  </Link>
+                </Grid>
+              </Grid>
+              <Copyright sx={{ mt: 5 }} />
             </Box>
           </Box>
         </Grid>
@@ -156,3 +165,4 @@ export default function SignInSide() {
     </ThemeProvider>
   );
 }
+

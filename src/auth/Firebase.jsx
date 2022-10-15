@@ -9,6 +9,7 @@ import {
   signOut,
   GoogleAuthProvider,
   signInWithPopup,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 
 const firebaseConfig = {
@@ -80,4 +81,19 @@ export const userObserver = (setCurrentUser) => {
       setCurrentUser(false);
     }
   });
+};
+
+export const passwordReset = async (email) => {
+  //? Email yoluyla şifre sıfırlama için kullanılan firebase metodu
+  await sendPasswordResetEmail(auth, email)
+    .then(() => {
+      // Password reset email sent!
+      alert("sadas");
+      // alert("Please check your mail box!");
+    })
+    .catch((err) => {
+      alert(err);
+      // alert(err.message);
+      // ..
+    });
 };
