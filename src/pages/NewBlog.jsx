@@ -46,7 +46,7 @@ const NewBlog = () => {
       >
         <CardMedia
           component="img"
-          sx={{ width: "14rem" }}
+          sx={{ display: { xs: "none", sm: "block" }, width: 200 }}
           image={blogImage}
           alt="green iguana"
         />

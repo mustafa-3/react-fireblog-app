@@ -13,6 +13,25 @@ import Container from "@mui/material/Container";
 import Navbar from "../components/Navbar";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContextProvider";
+import { Link } from "@mui/material";
+
+function Copyright(props) {
+  return (
+    <Typography
+      variant="body2"
+      color="text.secondary"
+      align="center"
+      {...props}
+    >
+      {"Copyright © "}
+      <Link color="inherit" href="https://mui.com/">
+        Your Website
+      </Link>{" "}
+      {new Date().getFullYear()}
+      {"."}
+    </Typography>
+  );
+}
 
 export default function Profile() {
   const theme = useTheme();
@@ -26,7 +45,8 @@ export default function Profile() {
         sx={{
           justifyContent: "center",
           alignItems: "center",
-          // marginTop: 4,
+          display: "flex",
+          padding: "3rem",
         }}
       >
         <Card
@@ -34,7 +54,13 @@ export default function Profile() {
             display: { sm: "block", md: "flex" },
           }}
         >
-          <Box sx={{ display: "flex", flexDirection: "column" }}>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
             <CardContent sx={{ flex: "1 0 auto" }}>
               <Typography component="div" variant="h5">
                 {currentUser.displayName}
@@ -48,28 +74,15 @@ export default function Profile() {
               </Typography>
             </CardContent>
             <Box sx={{ display: "flex", alignItems: "center", pl: 1, pb: 1 }}>
-              <IconButton aria-label="previous">
-                {theme.direction === "rtl" ? (
-                  <SkipNextIcon />
-                ) : (
-                  <SkipPreviousIcon />
-                )}
-              </IconButton>
-              <IconButton aria-label="play/pause">
-                <PlayArrowIcon sx={{ height: 38, width: 38 }} />
-              </IconButton>
-              <IconButton aria-label="next">
-                {theme.direction === "rtl" ? (
-                  <SkipPreviousIcon />
-                ) : (
-                  <SkipNextIcon />
-                )}
-              </IconButton>
+              <Copyright sx={{ mt: 5 }} />
             </Box>
           </Box>
           <CardMedia
             component="img"
-            sx={{ maxWidth: 350 }}
+            sx={{
+              maxWidth: 350,
+              // display: "flex",
+            }}
             image={`https://i.pravatar.cc/`}
             alt="Live from space album cover"
           />
