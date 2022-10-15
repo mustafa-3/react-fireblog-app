@@ -33,13 +33,30 @@ export default function Cards({ blogList }) {
         onClick={() => navigate(`/detail/${id}`, { state: blogList })}
       />
       <CardHeader title={title} subheader={date} />
-      <CardContent sx={{ height: "10rem" }}>
+      <CardContent
+        sx={{
+          height: "10rem",
+          overflow: "hidden",
+        }}
+      >
         <Typography variant="body2" color="text.secondary">
           {content}
         </Typography>
       </CardContent>
-      <h6>{author}</h6>
-      <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe" />
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          gap: 2,
+          marginLeft: 2,
+          marginTop: 2,
+        }}
+      >
+        <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe" />
+        <Typography variant="body2" color="text.secondary">
+          {author}
+        </Typography>
+      </Box>
       <CardActions
         disableSpacing
         sx={{ display: "flex", justifyContent: "space-between" }}
@@ -52,7 +69,10 @@ export default function Cards({ blogList }) {
           <FavoriteIcon />
         </IconButton>
         <Box>
-          <Button variant="outlined" onClick={() => navigate(`/detail/${id}`)}>
+          <Button
+            variant="outlined"
+            onClick={() => navigate(`/detail/${id}`, { state: blogList })}
+          >
             VIEW MORE
           </Button>
         </Box>

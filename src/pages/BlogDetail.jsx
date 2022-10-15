@@ -30,8 +30,9 @@ export default function RecipeReviewCard() {
   // console.log(data);
 
   const { id } = useParams();
-  // const { state } = useLocation();
+  const { state } = useLocation();
   console.log(id);
+  console.log(state);
 
   const deleteFromDatabase = () => {
     remove(ref(db, `blogs/${id}`));
@@ -55,6 +56,7 @@ export default function RecipeReviewCard() {
 
   const { currentUser } = useContext(AuthContext);
   const { blogList } = useContext(BlogContext);
+  console.log(blogList);
 
   return (
     <>
@@ -75,13 +77,18 @@ export default function RecipeReviewCard() {
                 {data.content}
               </Typography>
             </CardContent>
-            <Box sx={{ marginLeft: 2 }}>
-              {
-                <Avatar
-                  sx={{ bgcolor: red[500], fontSize: ".5rem" }}
-                  // aria-label="recipe"
-                />
-              }
+            <Box
+              sx={{
+                marginLeft: 2,
+                display: "flex",
+                alignItems: "center",
+                gap: 2,
+              }}
+            >
+              <Avatar sx={{ bgcolor: red[500], fontSize: ".5rem" }} />
+              <Typography variant="body2" color="black">
+                {state.author}
+              </Typography>
             </Box>
 
             <CardActions
