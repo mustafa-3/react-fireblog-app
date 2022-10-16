@@ -28,9 +28,7 @@ export default function RecipeReviewCard() {
   const [toggle, setToggle] = useState(false);
   const { title, setTitle, imageUrl, setImageUrl, content, setContent } =
     useContext(BlogContext);
-  const [editTitle, setEditTitle] = useState("sadasdsa");
-  const [editImage, setEditImage] = useState();
-  const [editContent, setEditContent] = useState();
+
   const navigate = useNavigate();
 
   const { id } = useParams();
@@ -76,9 +74,9 @@ export default function RecipeReviewCard() {
   const editBlogPost = (e) => {
     e.preventDefault();
     update(ref(db, "blogs/" + state.id), {
-      title: editTitle,
-      content: editContent,
-      image: editImage,
+      title: title,
+      content: content,
+      image: imageUrl,
     });
     navigate("/");
   };
@@ -173,9 +171,9 @@ export default function RecipeReviewCard() {
                 label="title"
                 name="title"
                 autoFocus
-                value={editTitle}
+                value={title}
                 placeholder="Edit your title "
-                onChange={(e) => setEditTitle(e.target.value)}
+                onChange={(e) => setTitle(e.target.value)}
               />
               <TextField
                 margin="normal"
@@ -185,9 +183,9 @@ export default function RecipeReviewCard() {
                 label="Image"
                 name="Image"
                 autoFocus
-                // value={data.imageUrl}
+                value={imageUrl}
                 placeholder="Edit your Image URL"
-                onChange={(e) => setEditImage(e.target.value)}
+                onChange={(e) => setImageUrl(e.target.value)}
               />
               <TextField
                 margin="normal"
@@ -196,10 +194,10 @@ export default function RecipeReviewCard() {
                 id="content"
                 label="content"
                 name="content"
-                // value={data.content}
+                value={content}
                 placeholder="Edit your content"
                 autoFocus
-                onChange={(e) => setEditContent(e.target.value)}
+                onChange={(e) => setContent(e.target.value)}
               />
               <Button
                 type="submit"
