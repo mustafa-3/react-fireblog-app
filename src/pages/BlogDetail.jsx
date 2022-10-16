@@ -17,9 +17,10 @@ import { useState } from "react";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Navbar from "../components/Navbar";
-import { Button } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContextProvider";
+import Modal from "@mui/material/Modal";
 
 export default function RecipeReviewCard() {
   const [data, setData] = useState("");
@@ -49,6 +50,22 @@ export default function RecipeReviewCard() {
   }, [id]);
 
   const { currentUser } = useContext(AuthContext);
+
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+  };
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   return (
     <>
@@ -105,7 +122,7 @@ export default function RecipeReviewCard() {
               >
                 {currentUser.email === state.author && (
                   <>
-                    <Button variant="contained" onClick={() => navigate("/")}>
+                    <Button variant="contained" onClick={handleOpen}>
                       UPDATE
                     </Button>
                     <Button variant="contained" onClick={deleteFromDatabase}>
@@ -124,6 +141,64 @@ export default function RecipeReviewCard() {
             </CardActions>
           </Card>
         </Box>
+        <div>
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box
+              sx={style}
+              component="form"
+              noValidate
+              // onSubmit={() => passwordReset(forgotEmail)}
+            >
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="title"
+                label="title"
+                name="title"
+                autoFocus
+                placeholder="Edit your title "
+                // onChange={(e) => setForgotEmail(e.target.value)}
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="Image"
+                label="Image"
+                name="Image"
+                autoFocus
+                placeholder="Edit your Image URL"
+                // onChange={(e) => setForgotEmail(e.target.value)}
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="content"
+                label="content"
+                name="content"
+                placeholder="Edit your content"
+                autoFocus
+                // onChange={(e) => setForgotEmail(e.target.value)}
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 1 }}
+              >
+                Edit Post
+              </Button>
+            </Box>
+          </Modal>
+        </div>
+        ;
       </Container>
     </>
   );
