@@ -1,10 +1,8 @@
-import { Modal } from "@mui/material";
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import BlogDetail from "../pages/BlogDetail";
 import Login from "../pages/Login";
 import Main from "../pages/Main";
-import BasicModal from "../pages/Modal";
 import NewBlog from "../pages/NewBlog";
 import Profile from "../pages/Profile";
 import Register from "../pages/Register";

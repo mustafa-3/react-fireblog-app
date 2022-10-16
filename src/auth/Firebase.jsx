@@ -11,6 +11,11 @@ import {
   signInWithPopup,
   sendPasswordResetEmail,
 } from "firebase/auth";
+import {
+  ToastErrorNotify,
+  ToastSuccessNotify,
+  ToastWarnNotify,
+} from "../helpers/ToastNotify";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAZKLWGhOqwxkdCWH9tVc-twnwUmIaK6Kw",
@@ -40,8 +45,9 @@ export const signUp = async (email, password, navigate, displayName) => {
     });
     navigate("/");
     console.log(userCredential);
+    ToastSuccessNotify("Successfully Registered");
   } catch (error) {
-    console.log(error);
+    ToastErrorNotify(error.message);
   }
 };
 export const login = async (email, password, navigate) => {
@@ -53,8 +59,9 @@ export const login = async (email, password, navigate) => {
     );
     navigate("/");
     console.log(userCredential);
+    ToastSuccessNotify("Successfully Logged in");
   } catch (error) {
-    console.log(error);
+    ToastErrorNotify(error.message);
   }
 };
 export const signInWithGoogle = (navigate) => {
@@ -63,15 +70,16 @@ export const signInWithGoogle = (navigate) => {
     .then((result) => {
       console.log(result);
       navigate("/");
+      ToastSuccessNotify("Successfully Logged in");
     })
-
     .catch((error) => {
-      console.log(error);
+      ToastErrorNotify(error.message);
     });
 };
 
 export const logOut = () => {
   signOut(auth);
+  ToastSuccessNotify("Successfully Logged out");
 };
 export const userObserver = (setCurrentUser) => {
   onAuthStateChanged(auth, (user) => {
@@ -84,16 +92,11 @@ export const userObserver = (setCurrentUser) => {
 };
 
 export const passwordReset = async (forgotEmail) => {
-  //? Email yoluyla şifre sıfırlama için kullanılan firebase metodu
   await sendPasswordResetEmail(auth, forgotEmail)
     .then(() => {
-      // Password reset email sent!
-      alert("sadas");
-      // alert("Please check your mail box!");
+      ToastWarnNotify("Please check your mail box!");
     })
     .catch((err) => {
-      alert(err);
-      // alert(err.message);
-      // ..
+      ToastErrorNotify(err.message);
     });
 };

@@ -18,10 +18,8 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Navbar from "../components/Navbar";
 import { Button } from "@mui/material";
-import { updateCurrentUser } from "firebase/auth";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContextProvider";
-import { BlogContext } from "../context/BlogContextProvider";
 
 export default function RecipeReviewCard() {
   const [data, setData] = useState("");
@@ -91,13 +89,21 @@ export default function RecipeReviewCard() {
               <IconButton
                 aria-label="add to favorites"
                 onClick={() => setToggle(!toggle)}
-                sx={{ color: toggle ? "red" : "grey" }}
+                sx={{
+                  color: toggle ? "red" : "grey",
+                  display: { xs: "none", sm: "block" },
+                }}
               >
                 <FavoriteIcon />
               </IconButton>
 
-              <Box sx={{ display: "flex", gap: 1 }}>
-                {currentUser.email == state.author && (
+              <Box
+                sx={{
+                  display: "flex",
+                  gap: { xs: 0.2, sm: 1 },
+                }}
+              >
+                {currentUser.email === state.author && (
                   <>
                     <Button variant="contained" onClick={() => navigate("/")}>
                       UPDATE

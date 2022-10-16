@@ -1,14 +1,9 @@
 import * as React from "react";
-import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import SkipPreviousIcon from "@mui/icons-material/SkipPrevious";
-import PlayArrowIcon from "@mui/icons-material/PlayArrow";
-import SkipNextIcon from "@mui/icons-material/SkipNext";
 import Container from "@mui/material/Container";
 import Navbar from "../components/Navbar";
 import { useContext } from "react";
@@ -34,7 +29,6 @@ function Copyright(props) {
 }
 
 export default function Profile() {
-  const theme = useTheme();
   const { currentUser } = useContext(AuthContext);
   console.log(currentUser);
   return (
@@ -81,7 +75,6 @@ export default function Profile() {
             component="img"
             sx={{
               maxWidth: 350,
-              // display: "flex",
             }}
             image={`https://i.pravatar.cc/`}
             alt="Live from space album cover"

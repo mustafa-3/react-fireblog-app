@@ -7,13 +7,10 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 import { logOut } from "../auth/Firebase";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContextProvider";
@@ -143,7 +140,10 @@ const ResponsiveAppBar = () => {
           </Box>
 
           <Box sx={{ flexGrow: 0, display: "flex" }}>
-            <Typography variant="h6" sx={{ marginRight: 2 }}>
+            <Typography
+              variant="h6"
+              sx={{ marginRight: 2, display: { xs: "none", sm: "block" } }}
+            >
               {currentUser?.displayName?.toLowerCase()}
             </Typography>
             <Tooltip title="Open settings">
@@ -169,18 +169,6 @@ const ResponsiveAppBar = () => {
             >
               {currentUser && (
                 <Box>
-                  {/* <MenuItem>
-                    <Typography textAlign="center">Profile</Typography>
-                  </MenuItem>
-                  <MenuItem onClick={() => navigate("/newblog")}>
-                    <Typography textAlign="center">NewBlog</Typography>
-                  </MenuItem>
-                  <MenuItem>
-                    <Typography textAlign="center">Dashboard</Typography>
-                  </MenuItem>
-                  <MenuItem onClick={() => logOut()}>
-                    <Typography textAlign="center">Logout</Typography>
-                  </MenuItem> */}
                   {settings.map((setting) => (
                     <MenuItem
                       key={setting}
