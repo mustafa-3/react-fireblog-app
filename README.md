@@ -5,7 +5,6 @@ My purpose in making this project is to use the power of React Hooks on the page
 - 3.Firebase Realtime Database
 - 4.Material UI
 - 5.Context API
-- 6.Link, Navlink, Navigate
-- 7.useParams, useLocation
+- 6.useParams, useLocation
 
 [Click here to see full Website...](https://react-fireblog-app.netlify.app/)
