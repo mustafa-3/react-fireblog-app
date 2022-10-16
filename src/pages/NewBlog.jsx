@@ -8,11 +8,11 @@ import { ref, push, set } from "firebase/database";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContextProvider";
 import { useNavigate } from "react-router-dom";
+import { BlogContext } from "../context/BlogContextProvider";
 
 const NewBlog = () => {
-  const [title, setTitle] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
-  const [content, setContent] = useState("");
+  const { title, setTitle, imageUrl, setImageUrl, content, setContent } =
+    useContext(BlogContext);
   const { currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
 

@@ -21,11 +21,14 @@ import { Button, TextField } from "@mui/material";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContextProvider";
 import Modal from "@mui/material/Modal";
+import { BlogContext } from "../context/BlogContextProvider";
 
 export default function RecipeReviewCard() {
   const [data, setData] = useState("");
   const [toggle, setToggle] = useState(false);
-  const [editTitle, setEditTitle] = useState();
+  const { title, setTitle, imageUrl, setImageUrl, content, setContent } =
+    useContext(BlogContext);
+  const [editTitle, setEditTitle] = useState("sadasdsa");
   const [editImage, setEditImage] = useState();
   const [editContent, setEditContent] = useState();
   const navigate = useNavigate();
@@ -77,6 +80,7 @@ export default function RecipeReviewCard() {
       content: editContent,
       image: editImage,
     });
+    navigate("/");
   };
 
   return (
@@ -87,7 +91,7 @@ export default function RecipeReviewCard() {
           <Card sx={{ marginTop: 4 }}>
             <CardMedia
               component="img"
-              image={data.imageUrl}
+              image={data.imageUrl || "https://picsum.photos/1600/900 "}
               alt="Paella dish"
               sx={{ maxHeight: 500 }}
             />
@@ -160,12 +164,7 @@ export default function RecipeReviewCard() {
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
           >
-            <Box
-              sx={style}
-              component="form"
-              noValidate
-              onSubmit={editBlogPost}
-            >
+            <Box sx={style} component="form" noValidate onSubmit={editBlogPost}>
               <TextField
                 margin="normal"
                 required
@@ -174,7 +173,7 @@ export default function RecipeReviewCard() {
                 label="title"
                 name="title"
                 autoFocus
-                // value={data.title}
+                value={editTitle}
                 placeholder="Edit your title "
                 onChange={(e) => setEditTitle(e.target.value)}
               />
@@ -213,7 +212,6 @@ export default function RecipeReviewCard() {
             </Box>
           </Modal>
         </div>
-        ;
       </Container>
     </>
   );
