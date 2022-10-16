@@ -23,7 +23,7 @@ import { AuthContext } from "../context/AuthContextProvider";
 import Modal from "@mui/material/Modal";
 import { BlogContext } from "../context/BlogContextProvider";
 
-export default function RecipeReviewCard() {
+export default function BlogDetail() {
   const [data, setData] = useState("");
   const [toggle, setToggle] = useState(false);
   const { title, setTitle, imageUrl, setImageUrl, content, setContent } =
@@ -90,7 +90,7 @@ export default function RecipeReviewCard() {
             <CardMedia
               component="img"
               image={data.imageUrl || "https://picsum.photos/1600/900 "}
-              alt="Paella dish"
+              alt="Blog Image"
               sx={{ maxHeight: 500 }}
             />
             <CardHeader title={data.title} subheader={state.date} />
@@ -171,7 +171,6 @@ export default function RecipeReviewCard() {
                 label="title"
                 name="title"
                 autoFocus
-                value={title}
                 placeholder="Edit your title "
                 onChange={(e) => setTitle(e.target.value)}
               />
@@ -183,7 +182,6 @@ export default function RecipeReviewCard() {
                 label="Image"
                 name="Image"
                 autoFocus
-                value={imageUrl}
                 placeholder="Edit your Image URL"
                 onChange={(e) => setImageUrl(e.target.value)}
               />
@@ -194,7 +192,6 @@ export default function RecipeReviewCard() {
                 id="content"
                 label="content"
                 name="content"
-                value={content}
                 placeholder="Edit your content"
                 autoFocus
                 onChange={(e) => setContent(e.target.value)}

@@ -26,7 +26,7 @@ export default function Cards({ blogList }) {
         component="img"
         height="194"
         image={imageUrl || "https://picsum.photos/1600/900"}
-        alt="Paella dish"
+        alt="Blog Image"
         sx={{ cursor: "pointer" }}
         onClick={() => navigate(`/detail/${id}`, { state: blogList })}
       />
