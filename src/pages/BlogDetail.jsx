@@ -10,7 +10,7 @@ import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { db, dbRef } from "../auth/Firebase";
-import { child, get, ref, remove } from "firebase/database";
+import { child, get, ref, remove, update } from "firebase/database";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -25,6 +25,9 @@ import Modal from "@mui/material/Modal";
 export default function RecipeReviewCard() {
   const [data, setData] = useState("");
   const [toggle, setToggle] = useState(false);
+  const [editTitle, setEditTitle] = useState();
+  const [editImage, setEditImage] = useState();
+  const [editContent, setEditContent] = useState();
   const navigate = useNavigate();
 
   const { id } = useParams();
@@ -66,6 +69,15 @@ export default function RecipeReviewCard() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const editBlogPost = (e) => {
+    e.preventDefault();
+    update(ref(db, "blogs/" + state.id), {
+      title: editTitle,
+      content: editContent,
+      image: editImage,
+    });
+  };
 
   return (
     <>
@@ -152,7 +164,7 @@ export default function RecipeReviewCard() {
               sx={style}
               component="form"
               noValidate
-              // onSubmit={() => passwordReset(forgotEmail)}
+              onSubmit={editBlogPost}
             >
               <TextField
                 margin="normal"
@@ -162,8 +174,9 @@ export default function RecipeReviewCard() {
                 label="title"
                 name="title"
                 autoFocus
+                // value={data.title}
                 placeholder="Edit your title "
-                // onChange={(e) => setForgotEmail(e.target.value)}
+                onChange={(e) => setEditTitle(e.target.value)}
               />
               <TextField
                 margin="normal"
@@ -173,8 +186,9 @@ export default function RecipeReviewCard() {
                 label="Image"
                 name="Image"
                 autoFocus
+                // value={data.imageUrl}
                 placeholder="Edit your Image URL"
-                // onChange={(e) => setForgotEmail(e.target.value)}
+                onChange={(e) => setEditImage(e.target.value)}
               />
               <TextField
                 margin="normal"
@@ -183,9 +197,10 @@ export default function RecipeReviewCard() {
                 id="content"
                 label="content"
                 name="content"
+                // value={data.content}
                 placeholder="Edit your content"
                 autoFocus
-                // onChange={(e) => setForgotEmail(e.target.value)}
+                onChange={(e) => setEditContent(e.target.value)}
               />
               <Button
                 type="submit"
